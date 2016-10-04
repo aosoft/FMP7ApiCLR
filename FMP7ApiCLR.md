@@ -68,7 +68,7 @@ FMP7 SDKの仕様に基づいて、C#で実装した.NET Framework用のAPIセ�
 FMP7 SDKの著作権は Guu 氏に所属します。
 
 
-
+<pre>
 Copyright (c) 2010-2012 TAN-Y
 FMP7 SDK Copyright (c) 2010-2012 Guu
 
@@ -90,7 +90,7 @@ misrepresented as being the original software.
 
 3. This notice may not be removed or altered from any source
 distribution.
-
+</pre>
 
 ## 履歴
 
