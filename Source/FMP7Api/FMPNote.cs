@@ -24,6 +24,8 @@ namespace FMP.FMP7
 
 		private byte m_note;
 
+		public static readonly FMPNote Rest = new FMPNote(255);
+
 		public FMPNote(byte nativeNote)
 		{
 			m_note = nativeNote;
@@ -109,5 +111,32 @@ namespace FMP.FMP7
 			}
 			return string.Format("{0}{1}", m_NoteNames[Key], Octave + 1);
 		}
+
+
+		public static bool operator ==(FMPNote srcA, FMPNote srcB)
+		{
+			return srcA.m_note == srcB.m_note;
+		}
+
+		public static bool operator !=(FMPNote srcA, FMPNote srcB)
+		{
+			return !(srcA == srcB);
+		}
+
+		public override int GetHashCode()
+		{
+			return m_note.GetHashCode();
+		}
+
+		public override bool Equals(object obj)
+		{
+			FMPNote? val = obj as FMPNote?;
+			if (val.HasValue)
+			{
+				return this == val.Value;
+			}
+			return false;
+		}
+
 	}
 }
