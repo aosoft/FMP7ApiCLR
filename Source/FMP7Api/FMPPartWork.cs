@@ -1,5 +1,5 @@
 ﻿//
-//	FMP7 API for .NET Copyright (c) 2010-2012 TAN-Y <tan-y@big.or.jp>
+//	FMP7 API for .NET Copyright (c) 2010-2012 TAN-Y
 //	FMP7 SDK          Copyright (c) 2010-2012 Guu
 //
 
