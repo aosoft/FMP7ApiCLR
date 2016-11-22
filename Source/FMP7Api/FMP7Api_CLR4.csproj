@@ -106,6 +106,7 @@
     <Compile Include="AddOn\FMP7Work.cs" />
     <Compile Include="AddOn\PMDControl.cs" />
     <Compile Include="AddOn\PMDWork.cs" />
+    <Compile Include="Comctl32Wrapper.cs" />
     <Compile Include="FMP7ApiResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

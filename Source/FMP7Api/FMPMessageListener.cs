@@ -41,11 +41,11 @@ namespace FMP.FMP7
 	/// してください。
 	/// 詳細は NativeWindow クラスのリファレンスを参照してください。
 	/// </remarks>
-	public class FMPMessageListener : NativeWindow
+	public class FMPMessageListenerLegacy : NativeWindow
 	{
 		static uint _msg = 0;
 
-		public FMPMessageListener()
+		public FMPMessageListenerLegacy()
 		{
 			if (_msg == 0)
 			{
@@ -68,6 +68,65 @@ namespace FMP.FMP7
 					this,
 					new FMPMessageEventArgs((FMPMessage)m.WParam.ToInt32()));
 			}
+		}
+
+		public event EventHandler<FMPMessageEventArgs> FMPMessageEvent;
+	}
+
+	public class FMPMessageListener
+	{
+		static private uint _msg = 0;
+		private IntPtr _handle = IntPtr.Zero;
+		private SubClassProc _proc = null;
+		private IntPtr _uIdSubclass = IntPtr.Zero;
+
+		public FMPMessageListener()
+		{
+			if (_msg == 0)
+			{
+				uint msg = User32Wrapper.RegisterWindowMessage("FMP7 MESSAGE KEY");
+				if (msg == 0)
+				{
+					Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+				}
+				_msg = msg;
+			}
+			_proc = this.SubClassProc;
+			_uIdSubclass = Marshal.GetFunctionPointerForDelegate(_proc);
+		}
+
+		public void AssignHandle(IntPtr handle)
+		{
+			ReleaseHandle();
+
+			if (handle != IntPtr.Zero)
+			{
+				Comctl32Wrapper.SetWindowSubclass(
+					_handle, _proc, _uIdSubclass, IntPtr.Zero);
+				_handle = handle;
+			}
+		}
+
+		public void ReleaseHandle()
+		{
+			if (_handle != IntPtr.Zero)
+			{
+				Comctl32Wrapper.RemoveWindowSubclass(
+					_handle, _proc, _uIdSubclass);
+				_handle = IntPtr.Zero;
+			}
+		}
+
+		private IntPtr SubClassProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam, IntPtr uIdSubclass, IntPtr dwRefData)
+		{
+			if (msg == _msg)
+			{
+				FMPMessageEvent(
+					this,
+					new FMPMessageEventArgs((FMPMessage)wParam.ToInt32()));
+			}
+
+			return Comctl32Wrapper.DefSubclassProc(hWnd, msg, wParam, lParam);
 		}
 
 		public event EventHandler<FMPMessageEventArgs> FMPMessageEvent;
