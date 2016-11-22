@@ -1,4 +1,9 @@
-﻿using System;
+﻿//
+//	FMP7 API for .NET Copyright (c) 2010-2012 TAN-Y
+//	FMP7 SDK          Copyright (c) 2010-2012 Guu
+//
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -88,9 +93,11 @@ namespace FMP.FMP7
 		{
 			if (msg == _msg)
 			{
-				FMPMessageEvent(
-					this,
-					new FMPMessageEventArgs((FMPMessage)wParam.ToInt32()));
+				var ev = FMPMessageEvent;
+				if (ev != null)
+				{
+					ev(this, new FMPMessageEventArgs((FMPMessage)wParam.ToInt32()));
+				}
 			}
 
 			return Comctl32Wrapper.DefSubclassProc(hWnd, msg, wParam, lParam);

@@ -1,11 +1,10 @@
 ﻿//
-//	FMP7 API for .NET Copyright (c) 2010-2012 TAN-Y
+//	FMP7 API for .NET Copyright (c) 2010-2016 TAN-Y
 //	FMP7 SDK          Copyright (c) 2010-2012 Guu
 //
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
