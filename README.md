@@ -52,7 +52,7 @@ FMP7 SDK の著作権は Guu 氏に所属します。
 
 
 <pre>
-Copyright (c) 2010-2012 TAN-Y
+Copyright (c) 2010-2016 TAN-Y
 FMP7 SDK Copyright (c) 2010-2012 Guu
 
 This software is provided 'as-is', without any express or implied
@@ -76,6 +76,9 @@ distribution.
 </pre>
 
 ## 履歴
+
+### Ver.1.2.8.0
+* FMPMessageListener の実装を改め Windows Forms に依存しないようにした。
 
 ### Ver.1.2.7.0 2012/8/4
 * FMPNote に Rest 定数を追加。
