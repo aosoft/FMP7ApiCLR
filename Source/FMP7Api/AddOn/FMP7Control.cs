@@ -1,6 +1,6 @@
 ﻿//
-//	FMP7 API for .NET Copyright (c) 2010-2012 TAN-Y
-//	FMP7 SDK          Copyright (c) 2010-2012 Guu
+//	FMP7 API for .NET Copyright (c) 2010-2016 TAN-Y
+//	FMP7 SDK          Copyright (c) 2010-2014 Guu
 //
 
 using System;
@@ -24,7 +24,7 @@ namespace FMP.FMP7.AddOn
 	/// </summary>
 	public class FMP7Control
 	{
-		private enum FMP7APICode : uint
+		private enum APICode : uint
 		{
 			GetFilePath = 1,		// 演奏ファイル情報取得
 			GetNumPWI = 2,			// PWI定義数
@@ -41,7 +41,7 @@ namespace FMP.FMP7.AddOn
 
 			if (FMPControl.CallExAPI(
 				DriverID.FMP7,
-				(uint)FMP7APICode.GetFilePath, (uint)fileType, (uint)index, ret, 0, ret.Length) != 0)
+				(uint)APICode.GetFilePath, (uint)fileType, (uint)index, ret, 0, ret.Length) != 0)
 			{
 				return null;
 			}
@@ -56,7 +56,7 @@ namespace FMP.FMP7.AddOn
 		public static int GetNumPWI()
 		{
 			return FMPControl.CallExAPI(
-				DriverID.FMP7, (uint)FMP7APICode.GetNumPWI, 0, 0, null, 0, 0);
+				DriverID.FMP7, (uint)APICode.GetNumPWI, 0, 0, null, 0, 0);
 		}
 	}
 }

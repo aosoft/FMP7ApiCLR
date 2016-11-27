@@ -1,6 +1,6 @@
 ﻿//
-//	FMP7 API for .NET Copyright (c) 2010-2012 TAN-Y
-//	FMP7 SDK          Copyright (c) 2010-2012 Guu
+//	FMP7 API for .NET Copyright (c) 2010-2016 TAN-Y
+//	FMP7 SDK          Copyright (c) 2010-2014 Guu
 //
 
 using System;
@@ -38,7 +38,7 @@ namespace FMP.FMP7.AddOn
 	{
 		public const int MaxCommentSize = 16 * 1024;
 
-		private enum FMP4APICode : uint
+		private enum APICode : uint
 		{
 			GetComment = 1,		// 曲データコメント取得
 			GetSync = 2,		// 曲データシンクロカウンタ取得
@@ -59,7 +59,7 @@ namespace FMP.FMP7.AddOn
 
 			if (FMPControl.CallExAPI(
 				DriverID.FMP4,
-				(uint)FMP4APICode.GetComment, 0, 0, ret, 0, MaxCommentSize) != 0)
+				(uint)APICode.GetComment, 0, 0, ret, 0, MaxCommentSize) != 0)
 			{
 				return null;
 			}
@@ -75,7 +75,7 @@ namespace FMP.FMP7.AddOn
 		{
 			return FMPControl.CallExAPI(
 				DriverID.FMP4,
-				(uint)FMP4APICode.GetSync, 0, 0, null, 0, 0);
+				(uint)APICode.GetSync, 0, 0, null, 0, 0);
 		}
 
 		/// <summary>
@@ -86,7 +86,7 @@ namespace FMP.FMP7.AddOn
 		{
 			return (FMP4DriverInfo)FMPControl.CallExAPI(
 				DriverID.FMP4,
-				(uint)FMP4APICode.GetDriver, 0, 0, null, 0, 0);
+				(uint)APICode.GetDriver, 0, 0, null, 0, 0);
 		}
 
 		/// <summary>
@@ -100,7 +100,7 @@ namespace FMP.FMP7.AddOn
 
 			if (FMPControl.CallExAPI(
 				DriverID.FMP4,
-				(uint)FMP4APICode.GetFilePath, (uint)fileType, 0, ret, 0, FMPControl.MaxPath) != 0)
+				(uint)APICode.GetFilePath, (uint)fileType, 0, ret, 0, FMPControl.MaxPath) != 0)
 			{
 				return null;
 			}

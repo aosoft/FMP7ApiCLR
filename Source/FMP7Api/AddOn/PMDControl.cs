@@ -1,6 +1,6 @@
 ﻿//
-//	FMP7 API for .NET Copyright (c) 2010-2012 TAN-Y
-//	FMP7 SDK          Copyright (c) 2010-2012 Guu
+//	FMP7 API for .NET Copyright (c) 2010-2016 TAN-Y
+//	FMP7 SDK          Copyright (c) 2010-2014 Guu
 //
 
 using System;
@@ -10,6 +10,17 @@ using System.Runtime.InteropServices;
 
 namespace FMP.FMP7.AddOn
 {
+	/// <summary>
+	/// FMPv4 のドライバ情報。動作しているドライバのフラグがセットされます。
+	/// </summary>
+	[Flags]
+	public enum PMDDriverInfo : int
+	{
+		PMDB2 = 0x00000001,
+		PMD86 = 0x00000002,
+		PMDPPZ = 0x00000004,
+		PPSDRV = 0x00000010,
+	}
 
 	/// <summary>
 	/// ファイルの種類。
@@ -27,7 +38,7 @@ namespace FMP.FMP7.AddOn
 	{
 		public const int MaxCommentSize = 1024;
 
-		private enum PMDAPICode : uint
+		private enum APICode : uint
 		{
 			GetMemo = 1,		// 曲データコメント取得
 			GetDriver = 2,		// 動作ドライバ
@@ -40,7 +51,7 @@ namespace FMP.FMP7.AddOn
 
 			if (FMPControl.CallExAPI(
 				DriverID.PMD,
-				(uint)PMDAPICode.GetMemo, (uint)index, 0, buf, 0, MaxCommentSize) != 0)
+				(uint)APICode.GetMemo, (uint)index, 0, buf, 0, MaxCommentSize) != 0)
 			{
 				return null;
 			}
@@ -107,6 +118,17 @@ namespace FMP.FMP7.AddOn
 		}
 
 		/// <summary>
+		/// 動作ドライバ情報を取得する。
+		/// </summary>
+		/// <returns></returns>
+		public static PMDDriverInfo GetDriverInfo()
+		{
+			return (FMP4DriverInfo)FMPControl.CallExAPI(
+				DriverID.FMP4,
+				(uint)APICode.GetDriver, 0, 0, null, 0, 0);
+		}
+
+		/// <summary>
 		/// ファイルパスを取得する。
 		/// </summary>
 		/// <param name="fileType"></param>
@@ -117,7 +139,7 @@ namespace FMP.FMP7.AddOn
 
 			if (FMPControl.CallExAPI(
 				DriverID.PMD,
-				(uint)PMDAPICode.GetFilePath, (uint)fileType, 0, ret, 0, FMPControl.MaxPath) != 0)
+				(uint)APICode.GetFilePath, (uint)fileType, 0, ret, 0, FMPControl.MaxPath) != 0)
 			{
 				return null;
 			}

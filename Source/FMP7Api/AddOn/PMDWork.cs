@@ -1,6 +1,6 @@
 ﻿//
-//	FMP7 API for .NET Copyright (c) 2010-2012 TAN-Y
-//	FMP7 SDK          Copyright (c) 2010-2012 Guu
+//	FMP7 API for .NET Copyright (c) 2010-2016 TAN-Y
+//	FMP7 SDK          Copyright (c) 2010-2014 Guu
 //
 
 using System;
@@ -10,18 +10,6 @@ using System.Runtime.InteropServices;
 
 namespace FMP.FMP7.AddOn
 {
-	/// <summary>
-	/// ドライバ情報
-	/// </summary>
-	[Flags]
-	public enum PMDDriverType : ushort
-	{
-		PMDB2 = 0x00000001,
-		PMD86 = 0x00000002,
-		PMDPPZ = 0x00000004,
-		PPSDRV = 0x00000010,
-	}
-
 	/// <summary>
 	/// パートモード種別
 	/// </summary>

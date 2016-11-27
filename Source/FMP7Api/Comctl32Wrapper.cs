@@ -1,6 +1,6 @@
 ﻿//
 //	FMP7 API for .NET Copyright (c) 2010-2016 TAN-Y
-//	FMP7 SDK          Copyright (c) 2010-2012 Guu
+//	FMP7 SDK          Copyright (c) 2010-2014 Guu
 //
 
 using System;
