@@ -35,18 +35,24 @@ namespace FMP.FMP7.AddOn
 
 		private enum APICode : uint
 		{
-			GetMemo = 1,		// 曲データコメント取得
+			GetComment = 1,		// 曲データコメント取得
 			GetDriver = 2,		// 動作ドライバ
 			GetFilePath = 3		// 演奏ファイル情報取得
 		}
 
-		unsafe private static byte[] InternalGetMemo(int index)
+		/// <summary>
+		/// コメントを取得する。
+		/// 曲データに含まれているデータそのまま(Shift JIS)です。
+		/// string として使う場合は適切に変換する必要があります。
+		/// </summary>
+		/// <returns></returns>
+		unsafe public static byte[] GetComment()
 		{
 			byte[] buf = new byte[MaxCommentSize];
 
 			if (FMPControl.CallExAPI(
 				DriverID.MXDRV,
-				(uint)APICode.GetMemo, (uint)index, 0, buf, 0, MaxCommentSize) != 0)
+				(uint)APICode.GetComment, 0, 0, buf, 0, MaxCommentSize) != 0)
 			{
 				return null;
 			}
@@ -62,6 +68,16 @@ namespace FMP.FMP7.AddOn
 			return ret;
 		}
 
+		/// <summary>
+		/// 動作ドライバ情報を取得する。
+		/// </summary>
+		/// <returns></returns>
+		public static MXDRVDriverInfo GetDriverInfo()
+		{
+			return (MXDRVDriverInfo)FMPControl.CallExAPI(
+				DriverID.MXDRV,
+				(uint)APICode.GetDriver, 0, 0, null, 0, 0);
+		}
 
 		/// <summary>
 		/// ファイルパスを取得する。
