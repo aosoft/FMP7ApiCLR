@@ -143,6 +143,12 @@ namespace FMP.FMP7
 				ret = sizeof(AddOn.PMDWorkPtr);
 			}
 
+			if ((supportExDrvs & AddOn.DriverType.MXDRV) != 0 &&
+				ret < sizeof(AddOn.MXDRVWorkPtr))
+			{
+				ret = sizeof(AddOn.MXDRVWorkPtr);
+			}
+
 			return ret;
 		}
 
@@ -358,6 +364,13 @@ namespace FMP.FMP7
 					if (m_exworksize >= sizeof(AddOn.PMDWorkPtr))
 					{
 						return Marshal.PtrToStructure(m_extendWork, typeof(AddOn.PMDWork));
+					}
+				}
+				else if (driverId == AddOn.DriverID.MXDRV)
+				{
+					if (m_exworksize >= sizeof(AddOn.MXDRVWorkPtr))
+					{
+						return Marshal.PtrToStructure(m_extendWork, typeof(AddOn.MXDRVWork));
 					}
 				}
 

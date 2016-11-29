@@ -123,7 +123,7 @@ namespace FMP.FMP7.AddOn
 		/// <returns></returns>
 		public static PMDDriverInfo GetDriverInfo()
 		{
-			return (FMP4DriverInfo)FMPControl.CallExAPI(
+			return (PMDDriverInfo)FMPControl.CallExAPI(
 				DriverID.FMP4,
 				(uint)APICode.GetDriver, 0, 0, null, 0, 0);
 		}

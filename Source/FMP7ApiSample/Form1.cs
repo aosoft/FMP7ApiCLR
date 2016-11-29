@@ -230,7 +230,8 @@ namespace FMP7ApiSample
 	
 				m_work.Open(
 					FMP.FMP7.AddOn.DriverType.FMP4 |
-					FMP.FMP7.AddOn.DriverType.PMD);
+					FMP.FMP7.AddOn.DriverType.PMD |
+					FMP.FMP7.AddOn.DriverType.MXDRV);
 				try
 				{
 					gwork = m_work.GetGlobalWork();
@@ -301,6 +302,33 @@ namespace FMP7ApiSample
 
 						int vol;
 						vol = pmdwork.Volume[i];
+						m_labelVolume[i].Text = vol.ToString();
+
+						if (m_partworks[i].Note.IsRest)
+						{
+							m_labelFreq[i].Text = "";
+						}
+						else
+						{
+							m_labelFreq[i].Text =
+								(m_partworks[i].Freq - m_partworks[i].Note.Freq).ToString();
+						}
+						m_labelLfoH[i].Text = "";
+						m_labelLfoL[i].Text = "";
+					}
+				}
+				else if (exwork is FMP.FMP7.AddOn.MXDRVWork)
+				{
+					var mxdrvwork = (FMP.FMP7.AddOn.MXDRVWork)exwork;
+
+					for (int i = 0; i < FMP.FMP7.AddOn.MXDRVWork.PartCountAll; i++)
+					{
+						m_labelSoundTypes[i].Text = mxdrvwork.Mode[i].ToString();
+						m_labelNotes[i].Text = m_partworks[i].Note.ToString();
+						m_labelTones[i].Text = string.Format("@{0}", m_partworks[i].Tone.ToString());
+
+						int vol;
+						vol = mxdrvwork.Volume[i];
 						m_labelVolume[i].Text = vol.ToString();
 
 						if (m_partworks[i].Note.IsRest)

@@ -23,6 +23,7 @@ namespace FMP.FMP7.AddOn
 	/// <summary>
 	/// MXDRV の拡張ワークを表す構造体
 	/// </summary>
+	[StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
 	public class MXDRVWork
 	{
 		public const int PartCountFM = 8;
@@ -39,5 +40,21 @@ namespace FMP.FMP7.AddOn
 
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = PartCountAll)]
 		public byte[] Pan;						// パン
+	}
+
+	/// <summary>
+	/// MXDRV の拡張ワークを表す構造体(アンセーフ)
+	/// </summary>
+	/// <remarks>
+	/// ポインタが扱える言語(C#、C++)で使用が可能。
+	/// unsafe (ネイティブ側)の構造体サイズを知るのにも使用(sizeof(MXDRVWorkPtr))
+	/// </remarks>
+	[StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
+	unsafe public struct MXDRVWorkPtr
+	{
+		public byte TimerB;											// TimerB値
+		public fixed byte Mode[MXDRVWork.PartCountAll];		// 音源詳細(※ EX_MODE参照)
+		public fixed byte Volume[MXDRVWork.PartCountAll];			// 実音量値
+		public fixed byte Pan[MXDRVWork.PartCountAll];				// パン
 	}
 }
