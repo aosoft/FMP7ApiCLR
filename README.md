@@ -1,11 +1,13 @@
 FMP7 SDK for .NET
 =====
-Copyright (C)2010-2012 TAN-Y
+Copyright (C) 2010-2016 TAN-Y
+
+FMP archive center http://archive.fmp.jp/
 
 ## このライブラリについて
 
-FMP7 SDKの仕様に基づいて、C#で実装した.NET Framework用のAPIセットです。  
-.NET Frameworkから簡単にFMP7の制御が行えます。
+FMP7 SDK の仕様に基づいて、 C# で実装した .NET Framework 用の API セットです。  
+.NET Framework から簡単に FMP7 の制御が行えます。
 公開されている機能は全てアクセスできるようになっています。
 
 
@@ -13,14 +15,28 @@ FMP7 SDKの仕様に基づいて、C#で実装した.NET Framework用のAPIセ�
 
 .NET Framework 2.0 ～ 4.0 に対応した開発環境で使用できます。ポインタでアクセスした方が効率がよいケースがあるので、ポインタが使用できる言語（C#など）を推奨します。
 
+.NET 実装ですが、本 SDK は Windows 専用です。
+
 1.2.5.0 より対象とする FMP7 のバージョンは 7.10a 以降になります。それ以前のバージョンでは使用できません。
 
-
+1.2.8.0 より Unity に対応しています (後述) 。
 
 ## サンプルについて
 
 簡易パラメータービューアーとプレイリスト再生を実装してみました。
 あまり効率のよいやり方をしていませんので、使い方の参考程度にしてください。
+
+## Unity での利用
+
+本 SDK の全機能を Unity から使用することができます。  
+動作確認は 5.4.3f1 で行っていますが、実装的にはかなり前のバージョンから利用できるはずです。
+
+ビルド済 DLL をマネージドプラグインとして組み込むか、ソースコードを C# スクリプトとして利用してください。  
+
+DLL を利用する場合、 5.4 系までは .NET 2 ベースの FMP7Api.CLR2.dll を利用してください。  
+5.5 以降で .NET 4.6 環境を利用する場合は FMP7Api.CLR4.dll を使うことになると思いますが、現時点では確認していません。問題がある場合はソースコードで組み込んでください。
+
+ソースコードで組み込む場合、 Unity の C# コンパイルオプションで unsafe を有効にする必要があります。 DLL で組み込む場合は必須ではありません。
 
 
 ## ソースコードについて
@@ -53,7 +69,7 @@ FMP7 SDK の著作権は Guu 氏に所属します。
 
 <pre>
 Copyright (c) 2010-2016 TAN-Y
-FMP7 SDK Copyright (c) 2010-2012 Guu
+FMP7 SDK Copyright (c) 2010-2014 Guu
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
@@ -77,8 +93,10 @@ distribution.
 
 ## 履歴
 
-### Ver.1.2.8.0
-* FMPMessageListener の実装を改め Windows Forms に依存しないようにした。
+### Ver.1.2.8.0 2016/11/29
+* exMXDRV 専用 API に対応。
+* Unity から使用できるように参照アセンブリを最小限に整理した。
+ * FMPMessageListener の実装を改め Windows Forms に依存しないようにした。
 
 ### Ver.1.2.7.0 2012/8/4
 * FMPNote に Rest 定数を追加。
