@@ -93,7 +93,7 @@ distribution.
 
 ## 履歴
 
-### Ver.1.2.8.0 2016/11/29
+### Ver.1.2.8.0 2016/11/30
 * exMXDRV 専用 API に対応。
 * Unity から使用できるように参照アセンブリを最小限に整理した。
  * FMPMessageListener の実装を改め Windows Forms に依存しないようにした。
