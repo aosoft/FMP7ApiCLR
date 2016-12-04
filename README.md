@@ -26,6 +26,15 @@ FMP7 SDK の仕様に基づいて、 C# で実装した .NET Framework 用の AP
 簡易パラメータービューアーとプレイリスト再生を実装してみました。
 あまり効率のよいやり方をしていませんので、使い方の参考程度にしてください。
 
+## 通常の Windows アプリケーションでの利用
+
+Binary 以下の dll を適当な位置 (アプリケーションプロジェクト下など) にコピーし、参照アセンブリに追加してください。
+
+* .NET Framework 2.0 ～ 3.x →  Binary/CLR2/FMP7Api.CLR2.dll
+* .NET Framework 4.x ～ →  Binary/CLR4/FMP7Api.CLR4.dll
+
+ソースコードで組み込む場合は SDK の .csproj を参照してください。下記 "ソースコードについて" も参考にしてください。
+
 ## Unity での利用
 
 本 SDK の全機能を Unity から使用することができます。  
@@ -33,8 +42,12 @@ FMP7 SDK の仕様に基づいて、 C# で実装した .NET Framework 用の AP
 
 ビルド済 DLL をマネージドプラグインとして組み込むか、ソースコードを C# スクリプトとして利用してください。  
 
-DLL を利用する場合、 5.4 系までは .NET 2 ベースの FMP7Api.CLR2.dll を利用してください。  
-5.5 以降で .NET 4.6 環境を利用する場合は FMP7Api.CLR4.dll を使うことになると思いますが、現時点では確認していません。問題がある場合はソースコードで組み込んでください。
+DLL を利用する場合、Project Settings - Player の "Api Compatibility Level" に応じて DLL を選択してください。
+
+* .NET Framework 2.0 ～ 3.x  →  Binary/CLR2/FMP7Api.CLR2.dll
+* .NET Framework 4.x ～ →  Binary/CLR4/FMP7Api.CLR4.dll
+
+.NET 4 は 5.5 以降での対応となりますが、 2016/11 現在、テストビルドの Editor でのみ利用可能ですので通常は FMP7Api.CLR2.dll を利用してください。
 
 ソースコードで組み込む場合、 Unity の C# コンパイルオプションで unsafe を有効にする必要があります。 DLL で組み込む場合は必須ではありません。
 
