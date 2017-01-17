@@ -4,7 +4,7 @@ Copyright (C) 2010-2016 TAN-Y
 
 FMP archive center http://archive.fmp.jp/  
 
-[最新バイナリはこちら (Latest Release)](/releases/latest) | [更新履歴](update.md)
+[最新バイナリはこちら (Latest Release)](https://github.com/aosoft/FMP7ApiCLR/releases/latest) | [更新履歴](update.md)
 
 ## このライブラリについて
 
