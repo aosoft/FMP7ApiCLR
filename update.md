@@ -1,5 +1,7 @@
 ## FMP7 SDK for .NET 更新履歴
 
+[README](README.md)
+
 ### Ver.1.2.8.0 2016/11/30
 * exMXDRV 専用 API に対応。
 * Unity から使用できるように参照アセンブリを最小限に整理した。

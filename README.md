@@ -2,7 +2,8 @@ FMP7 SDK for .NET
 =====
 Copyright (C) 2010-2016 TAN-Y
 
-FMP archive center http://archive.fmp.jp/
+FMP archive center http://archive.fmp.jp/  
+[更新履歴](update.md)
 
 ## このライブラリについて
 
@@ -103,5 +104,3 @@ misrepresented as being the original software.
 3. This notice may not be removed or altered from any source
 distribution.
 </pre>
-
-## 履歴
