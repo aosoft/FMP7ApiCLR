@@ -56,12 +56,17 @@ namespace FMP.FMP7
 		/// ここで指定したドライバ以外のものは GetExWork で取得することはできません。
 		/// </remarks>
 		/// <param name="supportExDrvs">サポートドライバ(複数)</param>
-		public void Open(AddOn.DriverType supportExDrvs)
+		public bool Open(AddOn.DriverType supportExDrvs)
+		{
+			return Open(supportExDrvs, null);
+		}
+
+		public bool Open(AddOn.DriverType supportExDrvs, int? millisecondsTimeout)
 		{
 			if (m_mappedMemory != IntPtr.Zero)
 			{
 				//	すでに開かれている
-				return;
+				return true;
 			}
 
 			FMPVersion ver = FMPControl.GetVersion();
@@ -88,7 +93,17 @@ namespace FMP.FMP7
 			{
 				m_mutex = Mutex.OpenExisting(FMP32KeyMutex, MutexRights.Synchronize);
 
-				m_mutex.WaitOne();
+				if (millisecondsTimeout.HasValue)
+				{
+					if (m_mutex.WaitOne(millisecondsTimeout.Value) == false)
+					{
+						return false;
+					}
+				}
+				else
+				{
+					m_mutex.WaitOne();
+				}
 				try
 				{
 					int partWorkSizeAll = m_worksize.PartSize * MaxChannelCount;
@@ -118,6 +133,8 @@ namespace FMP.FMP7
 				m_map = IntPtr.Zero;
 				throw;
 			}
+
+			return true;
 		}
 
 		unsafe private int GetAddOnWorkSize(AddOn.DriverType supportExDrvs)
