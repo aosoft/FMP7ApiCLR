@@ -1,6 +1,6 @@
 FMP7 SDK for .NET
 =====
-Copyright (C) 2010-2016 TAN-Y
+Copyright (C) 2010-2017 TAN-Y
 
 FMP archive center http://archive.fmp.jp/  
 
@@ -83,7 +83,7 @@ FMP7 SDK の著作権は Guu 氏に所属します。
 
 
 <pre>
-Copyright (c) 2010-2016 TAN-Y
+Copyright (c) 2010-2017 TAN-Y
 FMP7 SDK Copyright (c) 2010-2014 Guu
 
 This software is provided 'as-is', without any express or implied
