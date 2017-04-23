@@ -41,9 +41,14 @@ namespace FMP.FMP7
 		/// <summary>
 		/// 共有ワークを AddOn ドライバ未使用で開きます。
 		/// </summary>
-		public void Open()
+		public bool Open()
 		{
-			Open(AddOn.DriverType.None);
+			return Open(AddOn.DriverType.None);
+		}
+
+		public bool Open(int millisecondsTimeout)
+		{
+			return Open(AddOn.DriverType.None, millisecondsTimeout);
 		}
 
 		/// <summary>
@@ -58,10 +63,10 @@ namespace FMP.FMP7
 		/// <param name="supportExDrvs">サポートドライバ(複数)</param>
 		public bool Open(AddOn.DriverType supportExDrvs)
 		{
-			return Open(supportExDrvs, null);
+			return Open(supportExDrvs, -1);
 		}
 
-		public bool Open(AddOn.DriverType supportExDrvs, int? millisecondsTimeout)
+		public bool Open(AddOn.DriverType supportExDrvs, int millisecondsTimeout)
 		{
 			if (m_mappedMemory != IntPtr.Zero)
 			{
@@ -93,9 +98,9 @@ namespace FMP.FMP7
 			{
 				m_mutex = Mutex.OpenExisting(FMP32KeyMutex, MutexRights.Synchronize);
 
-				if (millisecondsTimeout.HasValue)
+				if (millisecondsTimeout >= 0)
 				{
-					if (m_mutex.WaitOne(millisecondsTimeout.Value) == false)
+					if (m_mutex.WaitOne(millisecondsTimeout) == false)
 					{
 						return false;
 					}
