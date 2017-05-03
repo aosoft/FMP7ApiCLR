@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Security.AccessControl;
 
 namespace FMP.FMP7
@@ -74,6 +73,21 @@ namespace FMP.FMP7
 				return true;
 			}
 
+			if (millisecondsTimeout >= 0)
+			{
+				//	一回 mutex の取得を試みる。
+				//	長時間ロックされていると以降の API コールで強制 Wait になるため。
+				using (var mutex = Mutex.OpenExisting(FMP32KeyMutex, MutexRights.Synchronize))
+				{
+					if (mutex == null ||
+						mutex.WaitOne(millisecondsTimeout) == false)
+					{
+						return false;
+					}
+					mutex.ReleaseMutex();
+				}
+			}
+
 			FMPVersion ver = FMPControl.GetVersion();
 
 			if (ver.Major < 7 ||
@@ -97,7 +111,10 @@ namespace FMP.FMP7
 			try
 			{
 				m_mutex = Mutex.OpenExisting(FMP32KeyMutex, MutexRights.Synchronize);
-
+				if (m_mutex == null)
+				{
+					return false;
+				}
 				if (millisecondsTimeout >= 0)
 				{
 					if (m_mutex.WaitOne(millisecondsTimeout) == false)

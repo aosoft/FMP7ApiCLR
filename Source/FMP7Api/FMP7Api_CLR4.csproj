@@ -119,6 +119,7 @@
     <Compile Include="FMPWork.cs" />
     <Compile Include="Kernel32Wrapper.cs" />
     <Compile Include="MusicFileExtInfo.cs" />
+    <Compile Include="Mutex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User32Wrapper.cs" />
   </ItemGroup>
