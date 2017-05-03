@@ -2,8 +2,9 @@
 
 [README](README.md)
 
-### Ver.1.2.9.0 2017/4/24
-* FMPWork.Open でタイムアウト指定をできるようにしました。
+### Ver.1.2.9.0 2017/5/4
+* FMPWork.Open でタイムアウト指定をできるようにした。
+* Unity で Build したアプリケーション上での Mono Runtime では System.Threading.Mutex が使えなかったので、  Win32 API を直接呼び出すようにした。
 
 ### Ver.1.2.8.0 2016/11/30
 * exMXDRV 専用 API に対応。
