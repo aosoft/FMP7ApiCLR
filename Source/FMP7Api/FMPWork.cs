@@ -86,6 +86,22 @@ namespace FMP.FMP7
 			return Open(info, supportExDrvs, -1);
 		}
 
+		/// <summary>
+		/// FMP 共有ワークを開く。
+		/// 開いている間は排他ロックをかけるので、なるべく短時間で Close すること。
+		/// </summary>
+		/// <param name="info">
+		/// 基本的な FMP の情報を指定する。
+		/// null を指定すると Open 処理の一環で取得を行いますが、タイミングによっては長期応答なしになる
+		/// 可能性があるので、事前に取得したものを指定することを推奨します。
+		/// タイムアウトは共有メモリに対するロック取得のタイムアウトですが、 FMPInfo の取得は SendMessage のため
+		/// タイムアウトになりません。
+		/// </param>
+		/// <param name="supportExDrvs">サポートドライバ(複数)</param>
+		/// <param name="millisecondsTimeout">タイムアウト時間 (ミリ秒)</param>
+		/// <returns>
+		/// 成功したら true 。タイムアウトなどが発生した場合は false 。
+		/// </returns>
 		public bool Open(FMPInfo info, AddOn.DriverType supportExDrvs, int millisecondsTimeout)
 		{
 			if (m_mappedMemory != IntPtr.Zero)
