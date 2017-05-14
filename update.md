@@ -2,8 +2,9 @@
 
 [README](README.md)
 
-### Ver.1.2.9.0 2017/5/4
+### Ver.1.2.9.0 2017/5/14
 * FMPWork.Open でタイムアウト指定をできるようにした。
+* FMPWork.Open で事前に取得しておいた FMPVersion, FMPWorkSize を利用して処理できるようにした。
 * Unity で Build したアプリケーション上での Mono Runtime では System.Threading.Mutex が使えなかったので、  Win32 API を直接呼び出すようにした。
 
 ### Ver.1.2.8.0 2016/11/30

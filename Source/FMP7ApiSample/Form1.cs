@@ -14,7 +14,8 @@ namespace FMP7ApiSample
 	{
 		private const int MaxChannel = 64;	// 7.10a では 64ch までなので
 
-		private FMPWork m_work;
+		private FMPWork m_work = null;
+		private FMPInfo m_info = null;
 		private Label[] m_labelChannelNums;
 		private Label[] m_labelSoundTypes;
 		private Label[] m_labelNotes;
@@ -73,6 +74,7 @@ namespace FMP7ApiSample
 
 			try
 			{
+				m_info = FMPControl.GetFMPInfo();
 				UpdateText();
 				m_extinfo = FMPControl.GetMusicFileExtInfo();
 			}
@@ -97,19 +99,31 @@ namespace FMP7ApiSample
 
 			listener.FMPMessageEvent += (s, e) =>
 				{
-					if (e.Message == FMPMessage.StartFMP)
+					switch (e.Message)
 					{
-						try
-						{
-							UpdateText();
-							m_extinfo = FMPControl.GetMusicFileExtInfo();
-						}
-						catch
-						{
-							labelMusicTitle.Text = "";
-							labelMusicCreator.Text = "";
-						}
+						case FMPMessage.StartFMP:
+							{
+								try
+								{
+									m_info = FMPControl.GetFMPInfo();
+									UpdateText();
+									m_extinfo = FMPControl.GetMusicFileExtInfo();
+								}
+								catch
+								{
+									m_info = null;
+									labelMusicTitle.Text = "";
+									labelMusicCreator.Text = "";
+								}
+							}
+							break;
+						case FMPMessage.EndFMP:
+							{
+								m_info = null;
+							}
+							break;
 					}
+
 				};
 
 			timer1.Start();
@@ -229,6 +243,7 @@ namespace FMP7ApiSample
 				object exwork;
 	
 				m_work.Open(
+					m_info,
 					FMP.FMP7.AddOn.DriverType.FMP4 |
 					FMP.FMP7.AddOn.DriverType.PMD |
 					FMP.FMP7.AddOn.DriverType.MXDRV);

@@ -113,6 +113,7 @@
     </Compile>
     <Compile Include="FMPControl.cs" />
     <Compile Include="FMPGlobalWork.cs" />
+    <Compile Include="FMPInfo.cs" />
     <Compile Include="FMPMessageListener.cs" />
     <Compile Include="FMPNote.cs" />
     <Compile Include="FMPPartWork.cs" />

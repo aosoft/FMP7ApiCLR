@@ -67,38 +67,52 @@ namespace FMP.FMP7
 
 		public bool Open(AddOn.DriverType supportExDrvs, int millisecondsTimeout)
 		{
+			return Open(null, supportExDrvs, millisecondsTimeout);
+		}
+
+
+		public bool Open(FMPInfo info)
+		{
+			return Open(info, AddOn.DriverType.None);
+		}
+
+		public bool Open(FMPInfo info, int millisecondsTimeout)
+		{
+			return Open(info, AddOn.DriverType.None, millisecondsTimeout);
+		}
+
+		public bool Open(FMPInfo info, AddOn.DriverType supportExDrvs)
+		{
+			return Open(info, supportExDrvs, -1);
+		}
+
+		public bool Open(FMPInfo info, AddOn.DriverType supportExDrvs, int millisecondsTimeout)
+		{
 			if (m_mappedMemory != IntPtr.Zero)
 			{
 				//	すでに開かれている
 				return true;
 			}
 
-			if (millisecondsTimeout >= 0)
+			if (info != null)
 			{
-				//	一回 mutex の取得を試みる。
-				//	長時間ロックされていると以降の API コールで強制 Wait になるため。
-				using (var mutex = Mutex.OpenExisting(FMP32KeyMutex, MutexRights.Synchronize))
+				if (info.Version.IsSupportedVersion == false)
 				{
-					if (mutex == null ||
-						mutex.WaitOne(millisecondsTimeout) == false)
-					{
-						return false;
-					}
-					mutex.ReleaseMutex();
+					//	FMP7のバージョン 7.10aを満たしていない
+					throw new FMPException(FMPError.NotSupportedFMPVersion);
 				}
+
+				m_worksize = info.WorkSize;
 			}
-
-			FMPVersion ver = FMPControl.GetVersion();
-
-			if (ver.Major < 7 ||
-				(ver.Major == 7 && ver.Minor < 10) ||
-				(ver.Major == 7 && ver.Minor == 10 && ver.MinorChar < 'a'))
+			else
 			{
-				//	FMP7のバージョン 7.10aを満たしていない
-				throw new FMPException(FMPError.NotSupportedFMPVersion);
-			}
+				if (FMPControl.GetVersion().IsSupportedVersion == false)
+				{
+					throw new FMPException(FMPError.NotSupportedFMPVersion);
+				}
 
-			m_worksize = FMPControl.GetWorkSize();
+				m_worksize = FMPControl.GetWorkSize();
+			}
 			m_exworksize = GetAddOnWorkSize(supportExDrvs);
 
 			m_map = Kernel32Wrapper.OpenFileMapping(

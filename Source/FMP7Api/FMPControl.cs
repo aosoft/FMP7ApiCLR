@@ -143,74 +143,6 @@ namespace FMP.FMP7
 		}
 	}
 
-	/// <summary>
-	/// ワークサイズ
-	/// </summary>
-	public struct FMPWorkSize
-	{
-		private int m_globalSize;
-		private int m_partSize;
-
-		public int GlobalSize
-		{
-			get { return m_globalSize; }
-		}
-
-		public int PartSize
-		{
-			get { return m_partSize; }
-		}
-
-		public FMPWorkSize(int global, int part)
-		{
-			m_globalSize = global;
-			m_partSize = part;
-		}
-	}
-
-	/// <summary>
-	/// FMPバージョン情報
-	/// </summary>
-	public struct FMPVersion
-	{
-		private int m_system;
-		private int m_major;
-		private int m_minor;
-
-		public int System
-		{
-			get { return m_system; }
-		}
-
-		public int Major
-		{
-			get { return m_major; }
-		}
-
-		public int Minor
-		{
-			get { return m_minor; }
-		}
-
-		public char MinorChar
-		{
-			get { return (char)m_minor; }
-		}
-
-		public FMPVersion(int system, int major, int minor)
-		{
-			m_system = system;
-			m_major = major;
-			m_minor = minor;
-		}
-
-		public override string ToString()
-		{
-			return string.Format("{0}.{1:00}{2}", System, Major, MinorChar);
-		}
-	}
-
-
 
 	/// <summary>
 	/// FMP制御クラス
@@ -354,6 +286,23 @@ namespace FMP.FMP7
 				new IntPtr(pSize),
 				sizeof(int) * 2);
 			return new FMPWorkSize(pSize[0], pSize[1]);
+		}
+
+		/// <summary>
+		/// FMPVersion, FMPWorkSize を持つ FMPInfo を取得する。
+		/// FMP が起動していないなど取得できない時は null を返す。
+		/// </summary>
+		/// <returns></returns>
+		public static FMPInfo GetFMPInfo()
+		{
+			try
+			{
+				return new FMPInfo(GetVersion(), GetWorkSize());
+			}
+			catch
+			{
+				return null;
+			}
 		}
 
 		/// <summary>
